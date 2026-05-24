@@ -1,0 +1,14 @@
+{
+  "name": "cobalt-for-codex",
+  "version": "1.0.0",
+  "description": "Cobalt-inspired theme installer for Codex Desktop on Windows.",
+  "private": false,
+  "license": "MIT",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "Install Cobalt for CodeX.cmd",
+    "install.ps1",
+    "theme/cobalt-for-codex.toml"
+  ]
+}
