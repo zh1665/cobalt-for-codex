@@ -1,21 +1,23 @@
 # Cobalt for CodeX
 
-Cobalt for CodeX is a small Windows theme installer for Codex Desktop. It applies a Cobalt-inspired dark blue UI surface, yellow accent color, and the `cobalt` code theme IDs to your local Codex configuration.
+Cobalt for CodeX is a single-file Windows theme installer for Codex Desktop. It applies a Cobalt-inspired dark blue UI surface, yellow accent color, and the `cobalt` code theme IDs to your local Codex configuration.
 
 ## Install
 
-Double-click:
+Download `Cobalt for CodeX.theme.ps1`, right-click it, and choose **Run with PowerShell**.
 
-```text
-Install Cobalt for CodeX.cmd
+If PowerShell blocks local scripts on your machine, run this command from the folder containing the file:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\Cobalt for CodeX.theme.ps1'
 ```
 
-The installer will:
+The single installer file will:
 
 - Create `C:\Users\<you>\.codex\config.toml` if it does not exist.
 - Back up the current config next to it before changing anything.
 - Set Codex Desktop to dark mode.
-- Apply the Cobalt surface, accent, semantic colors, and code theme IDs.
+- Apply the Cobalt surface, accent, semantic colors, fonts, and code theme IDs.
 - Save the config as UTF-8 without BOM.
 
 Restart Codex Desktop after installing so the title bar, sidebar, and conversation area can reload the theme.
@@ -45,7 +47,7 @@ opaqueWindows = true
 surface = "#002240"
 ```
 
-The full theme fragment is available in `theme/cobalt-for-codex.toml`.
+The full theme fragment is embedded inside `Cobalt for CodeX.theme.ps1`.
 
 ## Restore
 
@@ -59,4 +61,4 @@ To restore, replace `C:\Users\<you>\.codex\config.toml` with one of those backup
 
 ## Notes
 
-Codex Desktop does not currently expose a public theme-package format. This project is therefore a practical installer that applies the same local configuration fields Codex Desktop already uses.
+Codex Desktop does not currently expose a public `.theme` package format. This project is therefore a practical single-file installer that applies the same local configuration fields Codex Desktop already uses.

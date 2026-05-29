@@ -106,35 +106,7 @@ function Append-SectionBlock {
     return $Text.TrimEnd() + "`r`n`r`n" + $Block.Trim() + "`r`n"
 }
 
-New-Item -ItemType Directory -Force -Path $CodexHome | Out-Null
-
-if (Test-Path -LiteralPath $ConfigPath) {
-    Copy-Item -LiteralPath $ConfigPath -Destination $BackupPath
-    $config = [System.IO.File]::ReadAllText($ConfigPath)
-}
-else {
-    $config = ""
-    $BackupPath = $null
-}
-
-$config = Set-SectionKey -Text $config -Section "desktop" -Key "appearanceTheme" -Value '"dark"'
-$config = Set-SectionKey -Text $config -Section "desktop" -Key "appearanceLightCodeThemeId" -Value '"cobalt"'
-$config = Set-SectionKey -Text $config -Section "desktop" -Key "appearanceDarkCodeThemeId" -Value '"cobalt"'
-
-$themeSections = @(
-    "desktop.appearanceLightChromeTheme",
-    "desktop.appearanceLightChromeTheme.fonts",
-    "desktop.appearanceLightChromeTheme.semanticColors",
-    "desktop.appearanceDarkChromeTheme",
-    "desktop.appearanceDarkChromeTheme.fonts",
-    "desktop.appearanceDarkChromeTheme.semanticColors"
-)
-
-foreach ($section in $themeSections) {
-    $config = Remove-Section -Text $config -Section $section
-}
-
-$themeBlock = @"
+$ThemeBlock = @"
 [desktop.appearanceLightChromeTheme]
 accent = "#ffc600"
 contrast = 55
@@ -166,7 +138,35 @@ diffRemoved = "#ff628c"
 skill = "#ffc600"
 "@
 
-$config = Append-SectionBlock -Text $config -Block $themeBlock
+New-Item -ItemType Directory -Force -Path $CodexHome | Out-Null
+
+if (Test-Path -LiteralPath $ConfigPath) {
+    Copy-Item -LiteralPath $ConfigPath -Destination $BackupPath
+    $config = [System.IO.File]::ReadAllText($ConfigPath)
+}
+else {
+    $config = ""
+    $BackupPath = $null
+}
+
+$config = Set-SectionKey -Text $config -Section "desktop" -Key "appearanceTheme" -Value '"dark"'
+$config = Set-SectionKey -Text $config -Section "desktop" -Key "appearanceLightCodeThemeId" -Value '"cobalt"'
+$config = Set-SectionKey -Text $config -Section "desktop" -Key "appearanceDarkCodeThemeId" -Value '"cobalt"'
+
+$themeSections = @(
+    "desktop.appearanceLightChromeTheme",
+    "desktop.appearanceLightChromeTheme.fonts",
+    "desktop.appearanceLightChromeTheme.semanticColors",
+    "desktop.appearanceDarkChromeTheme",
+    "desktop.appearanceDarkChromeTheme.fonts",
+    "desktop.appearanceDarkChromeTheme.semanticColors"
+)
+
+foreach ($section in $themeSections) {
+    $config = Remove-Section -Text $config -Section $section
+}
+
+$config = Append-SectionBlock -Text $config -Block $ThemeBlock
 Write-Utf8NoBom -Path $ConfigPath -Content $config
 
 Write-Host "$ThemeName installed."
